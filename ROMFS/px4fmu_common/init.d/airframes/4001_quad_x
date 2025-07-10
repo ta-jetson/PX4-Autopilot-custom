@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# @name Generic Quadcopter
+# @name Generic Quadcopter with Servo Control
 #
 # @type Quadrotor x
 # @class Copter
@@ -10,7 +10,7 @@
 
 . ${R}etc/init.d/rc.mc_defaults
 
-# Square quadrotor X PX4 numbering
+# Load default quadcopter parameters
 param set-default CA_ROTOR_COUNT 4
 param set-default CA_ROTOR0_PX 1
 param set-default CA_ROTOR0_PY 1
@@ -22,3 +22,9 @@ param set-default CA_ROTOR2_KM -0.05
 param set-default CA_ROTOR3_PX -1
 param set-default CA_ROTOR3_PY 1
 param set-default CA_ROTOR3_KM -0.05
+
+# Load the main motor mixer (default quad X)
+set MIXER quad_x
+
+# ✅ Load custom AUX mixer for servo on AUX5
+set MIXER_AUX servo.aux.mix
