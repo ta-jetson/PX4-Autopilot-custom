@@ -1,7 +1,7 @@
 #pragma once
 
 #include <px4_platform_common/module.h>
-#include <uORB/Subscription.hpp>
+#include <uORB/uORB.h>
 #include <uORB/topics/manual_control_setpoint.h>
 #include <uORB/topics/actuator_controls.h>
 #include <drivers/drv_hrt.h>
@@ -16,7 +16,16 @@ public:
     static ServoControl *instantiate(int argc, char *argv[]) { return new ServoControl(); }
 
     static int custom_command(int argc, char *argv[]) { return print_usage("No custom command."); }
-    static int print_usage(const char *reason = nullptr);
+
+    static int print_usage(const char *reason = nullptr)
+    {
+        if (reason) {
+            PX4_WARN("%s", reason);
+        }
+        PRINT_MODULE_DESCRIPTION("Servo Control via Joystick Button");
+        PRINT_MODULE_USAGE_NAME("servo_control", "module");
+        return 0;
+    }
 
     int run() override;
 
